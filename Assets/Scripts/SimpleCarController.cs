@@ -1,10 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-<<<<<<< HEAD
 using UnityEngine.UI;
-=======
->>>>>>> bf92dd1c91f55e92282ce3069a54640340af7cd0
 
 [System.Serializable]
 public class AxleInfo
@@ -20,15 +17,12 @@ public class SimpleCarController : MonoBehaviour
     public List<AxleInfo> axleInfos;
     public float maxMotorTorque;
     public float maxSteeringAngle;
-<<<<<<< HEAD
     private int boostTime = 500;
     public Text boostText;
     private bool boostReady = false;
     public ParticleSystem boostEffect;
     [Range(1,2)]
     public int playerNumber = 1;
-=======
->>>>>>> bf92dd1c91f55e92282ce3069a54640340af7cd0
 
     // finds the corresponding visual wheel
     // correctly applies the transform
@@ -49,13 +43,11 @@ public class SimpleCarController : MonoBehaviour
         visualWheel.transform.rotation = rotation;
     }
 
-<<<<<<< HEAD
-
     private IEnumerator Boost()
     {
         while (boostTime > 0)
         {
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.5f);
             boostTime -= 1;
             boostText.text = boostTime.ToString();
             if(boostTime <= 0)
@@ -85,14 +77,6 @@ public class SimpleCarController : MonoBehaviour
             motor = maxMotorTorque * Input.GetAxis("Vertical2");
             steering = maxSteeringAngle * Input.GetAxis("Horizontal2");
         }
-=======
-    public void FixedUpdate()
-    {
-        Vector3 oldRot = transform.rotation.eulerAngles;
-
-        float motor = maxMotorTorque * Input.GetAxis("Vertical");
-        float steering = maxSteeringAngle * Input.GetAxis("Horizontal");
->>>>>>> bf92dd1c91f55e92282ce3069a54640340af7cd0
 
         foreach (AxleInfo axleInfo in axleInfos)
         {
@@ -107,7 +91,6 @@ public class SimpleCarController : MonoBehaviour
                 axleInfo.leftWheel.motorTorque = motor;
                 axleInfo.rightWheel.motorTorque = motor;
             }
-<<<<<<< HEAD
             if (axleInfo.motor && Input.GetAxis("Vertical") <= 0 && playerNumber == 1)
             {
                 GetComponent<Rigidbody>().drag = 2f;
@@ -136,12 +119,14 @@ public class SimpleCarController : MonoBehaviour
                     boostEffect.Play();
                 }
             }
-=======
-            if (axleInfo.motor && Input.GetAxis("Vertical") <= 0)
+            if (axleInfo.motor && Input.GetAxis("Vertical") <= 0 && playerNumber == 1)
             {
                 GetComponent<Rigidbody>().drag = 3f;
-            }         
->>>>>>> bf92dd1c91f55e92282ce3069a54640340af7cd0
+            }
+            if (axleInfo.motor && Input.GetAxis("Vertical2") <= 0 && playerNumber == 2)
+            {
+                GetComponent<Rigidbody>().drag = 3f;
+            }
 
             transform.rotation = Quaternion.Euler(oldRot.x, oldRot.y, 0);
 
