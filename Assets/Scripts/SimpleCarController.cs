@@ -119,13 +119,15 @@ public class SimpleCarController : MonoBehaviour
                     boostEffect.Play();
                 }
             }
-            if (axleInfo.motor && Input.GetAxis("Vertical") <= 0 && playerNumber == 1)
+            if (axleInfo.motor && Input.GetAxis("Vertical") < 0 && playerNumber == 1)
             {
-                GetComponent<Rigidbody>().drag = 3f;
+                GetComponent<Rigidbody>().drag = 1.5f;
+                GetComponent<Rigidbody>().AddForce(transform.forward * (-10), ForceMode.Acceleration);
             }
-            if (axleInfo.motor && Input.GetAxis("Vertical2") <= 0 && playerNumber == 2)
+            if (axleInfo.motor && Input.GetAxis("Vertical2") < 0 && playerNumber == 2)
             {
-                GetComponent<Rigidbody>().drag = 3f;
+                GetComponent<Rigidbody>().drag = 1.5f;
+                GetComponent<Rigidbody>().AddForce(transform.forward * (-10), ForceMode.Acceleration);
             }
 
             transform.rotation = Quaternion.Euler(oldRot.x, oldRot.y, 0);
