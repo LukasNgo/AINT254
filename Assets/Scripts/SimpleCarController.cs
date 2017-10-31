@@ -53,7 +53,7 @@ public class SimpleCarController : MonoBehaviour
             if(boostTime <= 0)
             {
                 boostReady = true;
-                boostText.text = "ready";
+                boostText.text = "boost ready";
             }
         }
     }
