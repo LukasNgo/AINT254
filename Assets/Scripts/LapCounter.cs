@@ -56,7 +56,7 @@ public class LapCounter : MonoBehaviour
                 {
                     bestLap = lapTimer2;
                 }
-                if (lapTimer3 < lapTimer1 && lapTimer1 < lapTimer2)
+                if (lapTimer3 < lapTimer1 && lapTimer3 < lapTimer2)
                 {
                     bestLap = lapTimer3;
                 }
@@ -91,7 +91,7 @@ public class LapCounter : MonoBehaviour
                 {
                     bestLap = lapTimer2;
                 }
-                if (lapTimer3 < lapTimer1 && lapTimer1 < lapTimer2)
+                if (lapTimer3 < lapTimer1 && lapTimer3 < lapTimer2)
                 {
                     bestLap = lapTimer3;
                 }
