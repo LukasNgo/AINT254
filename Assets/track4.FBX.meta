@@ -1,15 +1,24 @@
 fileFormatVersion: 2
-guid: 1ccc3eec571833e439bf955f87f9ec8f
-timeCreated: 1509457487
+guid: 8715c660cbc3fbb439bb3750fc4d3bbf
+timeCreated: 1509562489
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: //RootNode
-    400000: //RootNode
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: Box001
+    100000: barriers
+    100002: road
+    100004: //RootNode
+    400000: barriers
+    400002: road
+    400004: //RootNode
+    2300000: barriers
+    2300002: road
+    3300000: barriers
+    3300002: road
+    4300000: barriers
+    4300002: road
+    6400000: barriers
+    6400002: road
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -35,9 +44,9 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 8
+    globalScale: 3
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0

@@ -58,9 +58,14 @@ public class SimpleCarController : MonoBehaviour
         }
     }
 
+    public void Update()
+    {
+                StartCoroutine("Boost");
+
+    }
+
     public void FixedUpdate()
     {
-        StartCoroutine("Boost");
 
         Vector3 oldRot = transform.rotation.eulerAngles;
 
@@ -87,23 +92,23 @@ public class SimpleCarController : MonoBehaviour
             }
             if (axleInfo.motor)
             {
-                GetComponent<Rigidbody>().drag = 0.3f;
+                GetComponent<Rigidbody>().drag = 0.0f;
                 axleInfo.leftWheel.motorTorque = motor;
                 axleInfo.rightWheel.motorTorque = motor;
             }
-            if (axleInfo.motor && Input.GetAxis("Vertical") == 0 && playerNumber == 1)
-            {
-                GetComponent<Rigidbody>().drag = 3f;
-            }
-            if (axleInfo.motor && Input.GetAxis("Vertical2") == 0 && playerNumber == 2)
-            {
-                GetComponent<Rigidbody>().drag = 3f;
-            }
+            //if (axleInfo.motor && Input.GetAxis("Vertical") == 0 && playerNumber == 1)
+            //{
+            //    GetComponent<Rigidbody>().drag = 3f;
+            //}
+            //if (axleInfo.motor && Input.GetAxis("Vertical2") == 0 && playerNumber == 2)
+            //{
+            //    GetComponent<Rigidbody>().drag = 3f;
+            //}
             if (axleInfo.motor && Input.GetKeyDown(KeyCode.RightShift) && playerNumber == 1)
             {
                 if(boostReady == true)
                 {
-                    GetComponent<Rigidbody>().AddForce(transform.forward * 500, ForceMode.Acceleration);
+                    GetComponent<Rigidbody>().AddForce(transform.forward * 1000, ForceMode.Acceleration);
                     boostReady = false;
                     boostTime = 500;
                     boostEffect.Play();
@@ -113,7 +118,7 @@ public class SimpleCarController : MonoBehaviour
             {
                 if (boostReady == true)
                 {
-                    GetComponent<Rigidbody>().AddForce(transform.forward * 500, ForceMode.Acceleration);
+                    GetComponent<Rigidbody>().AddForce(transform.forward * 1000, ForceMode.Acceleration);
                     boostReady = false;
                     boostTime = 500;
                     boostEffect.Play();

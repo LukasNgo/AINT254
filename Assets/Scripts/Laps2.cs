@@ -11,7 +11,7 @@ public class Laps2 : MonoBehaviour
     public static int currentCheckpoint = 0;
     public static int currentLap = 0;
     public Vector3 startPos;
-    public int Lap;
+    public static int Lap;
     public Text lapCounter;
 
     void Start()
@@ -25,7 +25,14 @@ public class Laps2 : MonoBehaviour
     {
         Lap = currentLap;
         checkpointA = checkPointArray;
-        lapCounter.text = "Current Lap: " + currentLap;
+        if (currentLap < 4)
+        {
+            lapCounter.text = "Current Lap: " + currentLap;
+        }
+        else
+        {
+            lapCounter.text = "Race Finished";
+        }
     }
 
 }
