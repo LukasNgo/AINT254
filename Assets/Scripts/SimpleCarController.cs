@@ -96,14 +96,7 @@ public class SimpleCarController : MonoBehaviour
                 axleInfo.leftWheel.motorTorque = motor;
                 axleInfo.rightWheel.motorTorque = motor;
             }
-            //if (axleInfo.motor && Input.GetAxis("Vertical") == 0 && playerNumber == 1)
-            //{
-            //    GetComponent<Rigidbody>().drag = 3f;
-            //}
-            //if (axleInfo.motor && Input.GetAxis("Vertical2") == 0 && playerNumber == 2)
-            //{
-            //    GetComponent<Rigidbody>().drag = 3f;
-            //}
+        
             if (axleInfo.motor && Input.GetKeyDown(KeyCode.RightShift) && playerNumber == 1)
             {
                 if(boostReady == true)
