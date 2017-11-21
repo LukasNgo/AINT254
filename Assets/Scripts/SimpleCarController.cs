@@ -85,6 +85,9 @@ public class SimpleCarController : MonoBehaviour
 
         foreach (AxleInfo axleInfo in axleInfos)
         {
+            //increase gravity ons car
+            GetComponent<Rigidbody>().AddForce(3 * Physics.gravity);
+
             if (axleInfo.steering)
             {
                 axleInfo.leftWheel.steerAngle = steering;
