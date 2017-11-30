@@ -16,6 +16,7 @@ public class CarSelectionCamera : MonoBehaviour {
 
     private bool isPlayer1Selected = false;
     private bool isPlayer2Selected = false;
+    private bool isSelectTimeout = true;
 
     private Vector3 pos1 = new Vector3(80f, 7f, 8f);
     private Vector3 pos2 = new Vector3(60f, 7f, 8f);
@@ -78,13 +79,14 @@ public class CarSelectionCamera : MonoBehaviour {
             carInfo.text = "car4 test 44444444";
         }
 
-        if (Input.GetKeyDown(KeyCode.F) && !isPlayer1Selected)
+        if (Input.GetKeyDown(KeyCode.F) && !isPlayer1Selected && isSelectTimeout)
         {
             selectCarText.text = "Player 2 select car";
             playerOneSelection = currentPos;
             isPlayer1Selected = true;
+            StartCoroutine(PlayerSelectTimeout());
         }
-        if(Input.GetKeyDown(KeyCode.F) && isPlayer1Selected)
+        if(Input.GetKeyDown(KeyCode.F) && isPlayer1Selected && isSelectTimeout)
         {
             playerTwoSelection = currentPos;
             isPlayer2Selected = true;
@@ -101,10 +103,17 @@ public class CarSelectionCamera : MonoBehaviour {
         float t = 0.0f;
         while (t < 1.0f)
         {
-            t += Time.deltaTime * (Time.timeScale);
+            t += Time.deltaTime * (Time.timeScale) * 2;
             transform.position = Vector3.Lerp(startPos, finishPos, t);
             yield return 0;
         }
         currentPos = pos;
+    }
+
+    private IEnumerator PlayerSelectTimeout()
+    {
+        isSelectTimeout = false;
+        yield return new WaitForSecondsRealtime(1f);
+        isSelectTimeout = true;
     }
 }
