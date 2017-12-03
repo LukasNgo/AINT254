@@ -7,7 +7,7 @@ public class MenuScript : MonoBehaviour {
 
     public void ButtonStartGame()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
     }
 
     public void ButtonExit()

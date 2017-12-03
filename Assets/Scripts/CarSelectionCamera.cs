@@ -18,10 +18,10 @@ public class CarSelectionCamera : MonoBehaviour {
     private bool isPlayer2Selected = false;
     private bool isSelectTimeout = true;
 
-    private Vector3 pos1 = new Vector3(80f, 7f, 8f);
-    private Vector3 pos2 = new Vector3(60f, 7f, 8f);
-    private Vector3 pos3 = new Vector3(40f, 7f, 8f);
-    private Vector3 pos4 = new Vector3(20f, 7f, 8f);
+    private Vector3 pos1 = new Vector3(80f, 9f, 10f);
+    private Vector3 pos2 = new Vector3(60f, 9f, 10f);
+    private Vector3 pos3 = new Vector3(40f, 9f, 10f);
+    private Vector3 pos4 = new Vector3(20f, 9f, 10f);
 
     private int currentPos = 1;
 
@@ -64,29 +64,29 @@ public class CarSelectionCamera : MonoBehaviour {
         }
         if (currentPos == 1)
         {
-            carInfo.text = "car1 test 11111111";
+            carInfo.text = "RED\n\nSpeed: aa\nAcceleration: aa\nHandling: aa";
         }
         if (currentPos == 2)
         {
-            carInfo.text = "car2 test 2222222";
+            carInfo.text = "BLUE\n\nSpeed: aa\nAcceleration: aa\nHandling: aa";
         }
         if (currentPos == 3)
         {
-            carInfo.text = "car3 test 3333333";
+            carInfo.text = "GREEN\n\nSpeed: aa\nAcceleration: aa\nHandling: aa";
         }
         if (currentPos == 4)
         {
-            carInfo.text = "car4 test 44444444";
+            carInfo.text = "YELLOW\n\nSpeed: aa\nAcceleration: aa\nHandling: aa";
         }
 
-        if (Input.GetKeyDown(KeyCode.F) && !isPlayer1Selected && isSelectTimeout)
+        if((Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.Return)) && !isPlayer1Selected && isSelectTimeout)
         {
             selectCarText.text = "Player 2 select car";
             playerOneSelection = currentPos;
             isPlayer1Selected = true;
             StartCoroutine(PlayerSelectTimeout());
         }
-        if(Input.GetKeyDown(KeyCode.F) && isPlayer1Selected && isSelectTimeout)
+        if((Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.Return)) && isPlayer1Selected && isSelectTimeout)
         {
             playerTwoSelection = currentPos;
             isPlayer2Selected = true;

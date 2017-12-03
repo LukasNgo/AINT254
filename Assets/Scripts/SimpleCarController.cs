@@ -17,12 +17,25 @@ public class SimpleCarController : MonoBehaviour
     public List<AxleInfo> axleInfos;
     public float maxMotorTorque;
     public float maxSteeringAngle;
+    public int maxSpeed;
     private int boostTime = 500;
     public Text boostText;
+    public Text speedText;
     private bool boostReady = false;
     public ParticleSystem boostEffect;
+    public ParticleSystem setDestroyEffect;
+    public ParticleSystem setSpawnEffect;
     [Range(1,2)]
     public int playerNumber = 1;
+
+    public void DestroyEffect()
+    {
+        setDestroyEffect.Play();
+    }
+    public void SpawnEffect()
+    {
+        setSpawnEffect.Play();
+    }
 
     // finds the corresponding visual wheel
     // correctly applies the transform
@@ -60,8 +73,7 @@ public class SimpleCarController : MonoBehaviour
 
     public void Update()
     {
-                StartCoroutine("Boost");
-
+         StartCoroutine(Boost());
     }
 
     public void FixedUpdate()
@@ -85,21 +97,43 @@ public class SimpleCarController : MonoBehaviour
 
         foreach (AxleInfo axleInfo in axleInfos)
         {
-            //increase gravity ons car
-            GetComponent<Rigidbody>().AddForce(3 * Physics.gravity);
+            //increase car's gravity
+            //GetComponent<Rigidbody>().AddForce(3 * Physics.gravity);
+
+            //if wheels are not touching the ground add force downwards
+            bool groundedLeft;
+            bool groundedRight;
+            groundedRight = axleInfo.rightWheel.isGrounded;
+            groundedLeft = axleInfo.leftWheel.isGrounded;
+            if (!groundedLeft || !groundedRight)
+            {
+                GetComponent<Rigidbody>().AddForce(transform.up * (-50), ForceMode.Acceleration);
+            }
+
+            //get car speed
+            float speedoMeter;
+            speedoMeter = GetComponent<Rigidbody>().velocity.magnitude;
+            speedText.text = "Speed: " + (int)speedoMeter;
+
 
             if (axleInfo.steering)
             {
                 axleInfo.leftWheel.steerAngle = steering;
                 axleInfo.rightWheel.steerAngle = steering;
             }
-            if (axleInfo.motor)
+            if (axleInfo.motor && speedoMeter < maxSpeed)
             {
                 GetComponent<Rigidbody>().drag = 0.0f;
                 axleInfo.leftWheel.motorTorque = motor;
                 axleInfo.rightWheel.motorTorque = motor;
             }
+            else
+            {
+                axleInfo.leftWheel.motorTorque = 0;
+                axleInfo.rightWheel.motorTorque = 0;
+            }
         
+            //boost method
             if (axleInfo.motor && Input.GetKeyDown(KeyCode.RightShift) && playerNumber == 1)
             {
                 if(boostReady == true)
@@ -120,6 +154,8 @@ public class SimpleCarController : MonoBehaviour
                     boostEffect.Play();
                 }
             }
+
+            //add force when reversing
             if (axleInfo.motor && Input.GetAxis("Vertical") < 0 && playerNumber == 1)
             {
                 GetComponent<Rigidbody>().drag = 1.5f;
