@@ -18,6 +18,8 @@ public class SimpleCarController : MonoBehaviour
     public float maxMotorTorque;
     public float maxSteeringAngle;
     public int maxSpeed;
+    private int boostCooldown = 500;
+    public float boostPower = 1000f;
     private int boostTime = 500;
     public Text boostText;
     public Text speedText;
@@ -138,9 +140,9 @@ public class SimpleCarController : MonoBehaviour
             {
                 if(boostReady == true)
                 {
-                    GetComponent<Rigidbody>().AddForce(transform.forward * 1000, ForceMode.Acceleration);
+                    GetComponent<Rigidbody>().AddForce(transform.forward * boostPower, ForceMode.Acceleration);
                     boostReady = false;
-                    boostTime = 500;
+                    boostTime = boostCooldown;
                     boostEffect.Play();
                 }
             }
@@ -148,9 +150,9 @@ public class SimpleCarController : MonoBehaviour
             {
                 if (boostReady == true)
                 {
-                    GetComponent<Rigidbody>().AddForce(transform.forward * 1000, ForceMode.Acceleration);
+                    GetComponent<Rigidbody>().AddForce(transform.forward * boostPower, ForceMode.Acceleration);
                     boostReady = false;
-                    boostTime = 500;
+                    boostTime = boostCooldown;
                     boostEffect.Play();
                 }
             }

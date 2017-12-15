@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class CarSelectionCamera : MonoBehaviour {
 
     [SerializeField]
     private Camera cam;
     [SerializeField]
-    private Text carInfo, selectCarText;
+    private TextMeshProUGUI carInfo, selectCarText;
+    [SerializeField]
 
     public static int playerOneSelection;
     public static int playerTwoSelection;
@@ -18,9 +20,9 @@ public class CarSelectionCamera : MonoBehaviour {
     private bool isPlayer2Selected = false;
     private bool isSelectTimeout = true;
 
-    private Vector3 pos1 = new Vector3(80f, 9f, 10f);
-    private Vector3 pos2 = new Vector3(60f, 9f, 10f);
-    private Vector3 pos3 = new Vector3(40f, 9f, 10f);
+    private Vector3 pos1 = new Vector3(50f, 9f, 10f);
+    private Vector3 pos2 = new Vector3(40f, 9f, 10f);
+    private Vector3 pos3 = new Vector3(30f, 9f, 10f);
     private Vector3 pos4 = new Vector3(20f, 9f, 10f);
 
     private int currentPos = 1;
@@ -64,19 +66,19 @@ public class CarSelectionCamera : MonoBehaviour {
         }
         if (currentPos == 1)
         {
-            carInfo.text = "RED\n\nSpeed: aa\nAcceleration: aa\nHandling: aa";
+            carInfo.text = "RED\n\nSpeed: 60\nAcceleration: 3000\nHandling: 45\nBoost: 1000";
         }
         if (currentPos == 2)
         {
-            carInfo.text = "BLUE\n\nSpeed: aa\nAcceleration: aa\nHandling: aa";
+            carInfo.text = "BLUE\n\nSpeed: 50\nAcceleration: 5000\nHandling: 40\nBoost: 2000";
         }
         if (currentPos == 3)
         {
-            carInfo.text = "GREEN\n\nSpeed: aa\nAcceleration: aa\nHandling: aa";
+            carInfo.text = "GREEN\n\nSpeed: 40\nAcceleration: 3000\nHandling: 50\nBoost: 3000";
         }
         if (currentPos == 4)
         {
-            carInfo.text = "YELLOW\n\nSpeed: aa\nAcceleration: aa\nHandling: aa";
+            carInfo.text = "YELLOW\n\nSpeed: 65\nAcceleration: 4000\nHandling: 35\nBoost: 1000";
         }
 
         if((Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.Return)) && !isPlayer1Selected && isSelectTimeout)
