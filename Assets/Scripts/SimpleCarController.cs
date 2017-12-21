@@ -30,13 +30,31 @@ public class SimpleCarController : MonoBehaviour
     [Range(1,2)]
     public int playerNumber = 1;
 
-    public void DestroyEffect()
+    public void Start()
+    {
+        DestroyEffectStop();
+        SpawnEffectStop();
+    }
+
+    //particle effect methods
+    public void DestroyEffectPlay()
     {
         setDestroyEffect.Play();
     }
-    public void SpawnEffect()
+
+    public void DestroyEffectStop()
+    {
+        setDestroyEffect.Stop();
+    }
+
+    public void SpawnEffectPlay()
     {
         setSpawnEffect.Play();
+    }
+
+    public void SpawnEffectStop()
+    {
+        setSpawnEffect.Stop();
     }
 
     // finds the corresponding visual wheel
@@ -99,9 +117,6 @@ public class SimpleCarController : MonoBehaviour
 
         foreach (AxleInfo axleInfo in axleInfos)
         {
-            //increase car's gravity
-            //GetComponent<Rigidbody>().AddForce(3 * Physics.gravity);
-
             //if wheels are not touching the ground add force downwards
             bool groundedLeft;
             bool groundedRight;
