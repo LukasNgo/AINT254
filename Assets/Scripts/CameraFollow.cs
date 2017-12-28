@@ -4,19 +4,47 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour {
 
-    public Transform target;
+    [SerializeField]
+    private Transform target;
+    [SerializeField]
+    private float distance, height, rotationDamping, heightDamping;
 
-    public float smoothSpeed = 0.125f;
-    public Vector3 offset;
+    private float rotation_vector;
 
-    private Vector3 oldRot;
+    //reversing camera
+	private void FixedUpdate ()
+    {
+        Vector3 local_velocity = target.InverseTransformDirection(target.GetComponent<Rigidbody>().velocity);
+        if (local_velocity.z < -0.5f)
+        {
+            rotation_vector = target.eulerAngles.y + 200;
+        }
+        else
+        {
+            rotation_vector = target.eulerAngles.y;
+        }
+    }
 
-	void FixedUpdate () {
-        Vector3 desiredPosition = target.position + offset;
-        Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
-        transform.position = smoothedPosition;
+    //smooth follow camera
+    private void LateUpdate()
+    {
+        float wantedAngle = rotation_vector;
+        float wantedHeight = target.position.y + height;
+        float myAngle = transform.eulerAngles.y;
+        float myHeight = transform.position.y;
 
-        oldRot = target.transform.rotation.eulerAngles;
-        transform.rotation = Quaternion.Euler(60, oldRot.y, 0);
+        myAngle = Mathf.LerpAngle(myAngle, wantedAngle, rotationDamping * Time.deltaTime);
+        myHeight = Mathf.LerpAngle(myHeight, wantedHeight, heightDamping * Time.deltaTime);
+
+        Quaternion currentRotation = Quaternion.Euler(0, myAngle, 0);
+
+        transform.position = target.position;
+        transform.position -= currentRotation * Vector3.forward * distance;
+
+        Vector3 temp = transform.position;
+        temp.y = myHeight;
+        transform.position = temp;
+
+        transform.LookAt(target);
     }
 }

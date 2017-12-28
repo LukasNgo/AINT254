@@ -14,14 +14,19 @@ public class RaceCountdownScript : MonoBehaviour {
     public GameObject p2car2;
     public GameObject p2car3;
     public GameObject p2car4;
+    public GameObject overviewCamera1;
+    public GameObject overviewCamera2;
 
     // Use this for initialization
     void Start () {
+        overviewCamera1.SetActive(false);
+        overviewCamera2.SetActive(false);
         StartCoroutine(Countdown());
     }
 
     public IEnumerator Countdown()
     {
+        overviewCamera1.SetActive(true);
         countdownText.text = "";
         p1car1.GetComponent<Rigidbody>().isKinematic = true;
         p1car2.GetComponent<Rigidbody>().isKinematic = true;
@@ -35,8 +40,11 @@ public class RaceCountdownScript : MonoBehaviour {
         yield return new WaitForSecondsRealtime(1f);
         countdownText.text = "3";
         yield return new WaitForSecondsRealtime(1f);
+        overviewCamera1.SetActive(false);
+        overviewCamera2.SetActive(true);
         countdownText.text = "2";
         yield return new WaitForSecondsRealtime(1f);
+        overviewCamera2.SetActive(false);
         countdownText.text = "1";
         yield return new WaitForSecondsRealtime(1f);
         countdownText.text = "GO!";
