@@ -23,6 +23,7 @@ public class SimpleCarController : MonoBehaviour
     private int boostTime = 500;
     public Text boostText;
     public Text speedText;
+    public Transform speedoNeedle;
     private bool boostReady = false;
     public ParticleSystem boostEffect;
     public ParticleSystem setDestroyEffect;
@@ -131,7 +132,8 @@ public class SimpleCarController : MonoBehaviour
             float speedoMeter;
             speedoMeter = GetComponent<Rigidbody>().velocity.magnitude;
             speedText.text = "Speed: " + (int)speedoMeter;
-
+            float ang = Mathf.Lerp(94f, -92f, Mathf.InverseLerp(0f, 100f, speedoMeter));
+            speedoNeedle.transform.eulerAngles = new Vector3(0, 0, ang);
 
             if (axleInfo.steering)
             {
