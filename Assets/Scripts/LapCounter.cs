@@ -1,13 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using TMPro;
 
 public class LapCounter : MonoBehaviour
 {
-    public Text lapTimerText1;
-    public Text lapTimerText2;
-    public Text lapTimerText3;
-    public Text lapTimerText4;
+    public TextMeshProUGUI lapTimerText1;
+    public TextMeshProUGUI lapTimerText2;
+    public TextMeshProUGUI lapTimerText3;
+    public TextMeshProUGUI lapTimerText4;
     private float lapTimer1;
     private float lapTimer2;
     private float lapTimer3;
@@ -60,7 +61,7 @@ public class LapCounter : MonoBehaviour
                 {
                     bestLap = lapTimer3;
                 }
-                lapTimerText4.text = "Best Lap: " + bestLap;
+                lapTimerText4.text = "Best Lap: " + System.Math.Round(bestLap, 2).ToString();
             }
         }
         else
@@ -95,7 +96,7 @@ public class LapCounter : MonoBehaviour
                 {
                     bestLap = lapTimer3;
                 }
-                lapTimerText4.text = "Best Lap: " + bestLap;
+                lapTimerText4.text = "Best Lap: " + System.Math.Round(bestLap,2).ToString();
             }
         }
 

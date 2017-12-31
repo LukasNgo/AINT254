@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using TMPro;
 
 public class Laps2 : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class Laps2 : MonoBehaviour
     public static int currentLap = 0;
     public Vector3 startPos;
     public static int Lap;
-    public Text lapCounter;
+    public TextMeshProUGUI lapCounter;
 
     void Start()
     {

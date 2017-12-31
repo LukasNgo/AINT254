@@ -18,10 +18,10 @@ public class SimpleCarController : MonoBehaviour
     public float maxMotorTorque;
     public float maxSteeringAngle;
     public int maxSpeed;
-    private int boostCooldown = 500;
+    private float boostCooldown = 0;
     public float boostPower = 1000f;
-    private int boostTime = 500;
     public Text boostText;
+    public GameObject boostBar;
     public Text speedText;
     public Transform speedoNeedle;
     private bool boostReady = false;
@@ -77,24 +77,20 @@ public class SimpleCarController : MonoBehaviour
         visualWheel.transform.rotation = rotation;
     }
 
-    private IEnumerator Boost()
-    {
-        while (boostTime > 0)
-        {
-            yield return new WaitForSeconds(0.5f);
-            boostTime -= 1;
-            boostText.text = boostTime.ToString();
-            if(boostTime <= 0)
-            {
-                boostReady = true;
-                boostText.text = "boost ready";
-            }
-        }
-    }
-
+    //boost cooldown timer
     public void Update()
     {
-         StartCoroutine(Boost());
+        if (boostCooldown <= 100)
+        {
+            boostCooldown += Time.deltaTime*15;
+            boostText.text = System.Math.Round(boostCooldown, 0).ToString() + " %";
+            boostBar.transform.localScale = new Vector3(boostBar.transform.localScale.x, boostCooldown / 100, boostBar.transform.localScale.z);
+            if (boostCooldown >= 100)
+            {
+                boostReady = true;
+                boostText.text = "Boost Ready";
+            }
+        }
     }
 
     public void FixedUpdate()
@@ -151,7 +147,29 @@ public class SimpleCarController : MonoBehaviour
                 axleInfo.leftWheel.motorTorque = 0;
                 axleInfo.rightWheel.motorTorque = 0;
             }
-        
+
+            //apply braketorque
+            if (Input.GetAxis("Vertical") == 0 && playerNumber == 1)
+            {
+                axleInfo.leftWheel.brakeTorque = maxMotorTorque/2;
+                axleInfo.rightWheel.brakeTorque = maxMotorTorque/2;
+            }
+            if (Input.GetAxis("Vertical") != 0 && playerNumber == 1)
+            {
+                axleInfo.leftWheel.brakeTorque = 0f;
+                axleInfo.rightWheel.brakeTorque = 0f;
+            }
+            if (Input.GetAxis("Vertical2") == 0 && playerNumber == 2)
+            {
+                axleInfo.leftWheel.brakeTorque = maxMotorTorque/2;
+                axleInfo.rightWheel.brakeTorque = maxMotorTorque/2;
+            }
+            if (Input.GetAxis("Vertical2") != 0 && playerNumber == 2)
+            {
+                axleInfo.leftWheel.brakeTorque = 0f;
+                axleInfo.rightWheel.brakeTorque = 0f;
+            }
+
             //boost method
             if (axleInfo.motor && Input.GetKeyDown(KeyCode.RightShift) && playerNumber == 1)
             {
@@ -159,7 +177,7 @@ public class SimpleCarController : MonoBehaviour
                 {
                     GetComponent<Rigidbody>().AddForce(transform.forward * boostPower, ForceMode.Acceleration);
                     boostReady = false;
-                    boostTime = boostCooldown;
+                    boostCooldown = 0;
                     boostEffect.Play();
                 }
             }
@@ -169,7 +187,7 @@ public class SimpleCarController : MonoBehaviour
                 {
                     GetComponent<Rigidbody>().AddForce(transform.forward * boostPower, ForceMode.Acceleration);
                     boostReady = false;
-                    boostTime = boostCooldown;
+                    boostCooldown = 0;
                     boostEffect.Play();
                 }
             }

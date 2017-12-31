@@ -11,7 +11,6 @@ public class CarSelectionCamera : MonoBehaviour {
     private Camera cam;
     [SerializeField]
     private TextMeshProUGUI carInfo, selectCarText;
-    [SerializeField]
 
     public static int playerOneSelection;
     public static int playerTwoSelection;
@@ -26,6 +25,13 @@ public class CarSelectionCamera : MonoBehaviour {
     private Vector3 pos4 = new Vector3(20f, 9f, 10f);
 
     private int currentPos = 1;
+
+    public Image fadeImage;
+    private bool isInTransition;
+    private bool isShowing;
+    private float transition;
+    private float duration;
+
 
     void Start () {
         cam.transform.position = pos1;
@@ -66,19 +72,19 @@ public class CarSelectionCamera : MonoBehaviour {
         }
         if (currentPos == 1)
         {
-            carInfo.text = "RED\n\nSpeed: 60\nAcceleration: 3000\nHandling: 45\nBoost: 1000";
+            carInfo.text = "RED\n\nSpeed: 60\nAcceleration: 3000\nHandling: 45\nBoost power: 1000";
         }
         if (currentPos == 2)
         {
-            carInfo.text = "BLUE\n\nSpeed: 50\nAcceleration: 5000\nHandling: 40\nBoost: 2000";
+            carInfo.text = "BLUE\n\nSpeed: 50\nAcceleration: 5000\nHandling: 40\nBoost power: 2000";
         }
         if (currentPos == 3)
         {
-            carInfo.text = "GREEN\n\nSpeed: 40\nAcceleration: 3000\nHandling: 50\nBoost: 3000";
+            carInfo.text = "GREEN\n\nSpeed: 40\nAcceleration: 3000\nHandling: 50\nBoost power: 3000";
         }
         if (currentPos == 4)
         {
-            carInfo.text = "YELLOW\n\nSpeed: 65\nAcceleration: 4000\nHandling: 35\nBoost: 1000";
+            carInfo.text = "YELLOW\n\nSpeed: 65\nAcceleration: 4000\nHandling: 35\nBoost power: 1000";
         }
 
         if((Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.Return)) && !isPlayer1Selected && isSelectTimeout)
@@ -86,6 +92,7 @@ public class CarSelectionCamera : MonoBehaviour {
             selectCarText.text = "Player 2 select car";
             playerOneSelection = currentPos;
             isPlayer1Selected = true;
+            Fade(true, 0.5f);
             StartCoroutine(PlayerSelectTimeout());
         }
         if((Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.Return)) && isPlayer1Selected && isSelectTimeout)
@@ -97,6 +104,21 @@ public class CarSelectionCamera : MonoBehaviour {
         {
             SceneManager.LoadScene(1);
         }
+
+        //fade in/out function
+        if (!isInTransition)
+        {
+            return;
+        }
+
+        transition += (isShowing) ? Time.deltaTime * (1 / duration) : -Time.deltaTime * (1 / duration);
+        fadeImage.color = Color.Lerp(new Color(1, 1, 1, 0), Color.white, transition);
+
+        if (transition > 1 || transition < 0)
+        {
+            isInTransition = false;
+        }
+        
     }
 
     private IEnumerator Transition(Vector3 startPos, Vector3 finishPos, int pos)
@@ -115,7 +137,19 @@ public class CarSelectionCamera : MonoBehaviour {
     private IEnumerator PlayerSelectTimeout()
     {
         isSelectTimeout = false;
+        transform.position = pos1;
+        currentPos = 1;
         yield return new WaitForSecondsRealtime(1f);
+        Fade(false, 0.5f);
         isSelectTimeout = true;
+    }
+
+    //fade in/out function
+    public void Fade(bool showing, float duration)
+    {
+        isShowing = showing;
+        isInTransition = true;
+        this.duration = duration;
+        transition = (isShowing) ? 0 : 1;
     }
 }

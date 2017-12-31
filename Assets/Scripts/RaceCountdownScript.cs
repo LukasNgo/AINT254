@@ -16,11 +16,13 @@ public class RaceCountdownScript : MonoBehaviour {
     public GameObject p2car4;
     public GameObject overviewCamera1;
     public GameObject overviewCamera2;
+    public GameObject canvasGUI;
 
     // Use this for initialization
     void Start () {
         overviewCamera1.SetActive(false);
         overviewCamera2.SetActive(false);
+        canvasGUI.SetActive(false);
         StartCoroutine(Countdown());
     }
 
@@ -46,6 +48,7 @@ public class RaceCountdownScript : MonoBehaviour {
         yield return new WaitForSecondsRealtime(1f);
         overviewCamera2.SetActive(false);
         countdownText.text = "1";
+        canvasGUI.SetActive(true);
         yield return new WaitForSecondsRealtime(1f);
         countdownText.text = "GO!";
         Time.timeScale = 1;
