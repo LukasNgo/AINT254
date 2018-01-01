@@ -12,8 +12,8 @@ public class CarSelectionCamera : MonoBehaviour {
     [SerializeField]
     private TextMeshProUGUI carInfo, selectCarText;
 
-    public static int playerOneSelection;
-    public static int playerTwoSelection;
+    public static int playerOneSelection = 0;
+    public static int playerTwoSelection = 0;
 
     private bool isPlayer1Selected = false;
     private bool isPlayer2Selected = false;
