@@ -72,19 +72,23 @@ public class CarSelectionCamera : MonoBehaviour {
         }
         if (currentPos == 1)
         {
-            carInfo.text = "RED\n\nSpeed: 60\nAcceleration: 3000\nHandling: 45\nBoost power: 1000";
+            //speed 60 acc 3000 handling 45 boost 1000
+            carInfo.text = "POLICE\n\nSpeed: Fast\nAcceleration: Low\nHandling: High\nBoost power: Low";
         }
         if (currentPos == 2)
         {
-            carInfo.text = "BLUE\n\nSpeed: 50\nAcceleration: 5000\nHandling: 40\nBoost power: 2000";
+            //speed 50 acc 5000 handling 40 boost 2000
+            carInfo.text = "TAXI\n\nSpeed: Medium\nAcceleration: High\nHandling: Medium\nBoost power: Medium";
         }
         if (currentPos == 3)
         {
-            carInfo.text = "GREEN\n\nSpeed: 40\nAcceleration: 3000\nHandling: 50\nBoost power: 3000";
+            //speed 40 acc 5000 handling 50 boost 3000
+            carInfo.text = "RED\n\nSpeed: Slow\nAcceleration: High\nHandling: Very High\nBoost power: High";
         }
         if (currentPos == 4)
         {
-            carInfo.text = "YELLOW\n\nSpeed: 65\nAcceleration: 4000\nHandling: 35\nBoost power: 1000";
+            //speed 65 acc 4000 handling 35 boost 1000
+            carInfo.text = "YELLOW\n\nSpeed: Very Fast\nAcceleration: Medium\nHandling: Low\nBoost power: Low";
         }
 
         if((Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.Return)) && !isPlayer1Selected && isSelectTimeout)
