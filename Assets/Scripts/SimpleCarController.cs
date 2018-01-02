@@ -30,6 +30,7 @@ public class SimpleCarController : MonoBehaviour
     public ParticleSystem setSpawnEffect;
     [Range(1,2)]
     public int playerNumber = 1;
+    public AudioSource boostAudioSource;
 
     public void Start()
     {
@@ -77,12 +78,13 @@ public class SimpleCarController : MonoBehaviour
         visualWheel.transform.rotation = rotation;
     }
 
-    //boost cooldown timer
-    public void Update()
+    public void FixedUpdate()
     {
+
+        //boost cooldown timer
         if (boostCooldown <= 100)
         {
-            boostCooldown += Time.deltaTime*15;
+            boostCooldown += Time.deltaTime * 15;
             boostText.text = System.Math.Round(boostCooldown, 0).ToString() + " %";
             boostBar.transform.localScale = new Vector3(boostBar.transform.localScale.x, boostCooldown / 100, boostBar.transform.localScale.z);
             if (boostCooldown >= 100)
@@ -91,10 +93,6 @@ public class SimpleCarController : MonoBehaviour
                 boostText.text = "Boost Ready";
             }
         }
-    }
-
-    public void FixedUpdate()
-    {
 
         Vector3 oldRot = transform.rotation.eulerAngles;
 
@@ -130,6 +128,9 @@ public class SimpleCarController : MonoBehaviour
             speedText.text = "Speed: " + (int)speedoMeter;
             float ang = Mathf.Lerp(94f, -92f, Mathf.InverseLerp(0f, 100f, speedoMeter));
             speedoNeedle.transform.eulerAngles = new Vector3(0, 0, ang);
+
+            //engine sound
+            GetComponent<AudioSource>().pitch = 1 + speedoMeter / maxSpeed;
 
             if (axleInfo.steering)
             {
@@ -176,6 +177,7 @@ public class SimpleCarController : MonoBehaviour
                 if(boostReady == true)
                 {
                     GetComponent<Rigidbody>().AddForce(transform.forward * boostPower, ForceMode.Acceleration);
+                    boostAudioSource.Play();
                     boostReady = false;
                     boostCooldown = 0;
                     boostEffect.Play();
@@ -186,6 +188,7 @@ public class SimpleCarController : MonoBehaviour
                 if (boostReady == true)
                 {
                     GetComponent<Rigidbody>().AddForce(transform.forward * boostPower, ForceMode.Acceleration);
+                    boostAudioSource.Play();
                     boostReady = false;
                     boostCooldown = 0;
                     boostEffect.Play();
