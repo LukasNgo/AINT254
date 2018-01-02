@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class RaceCountdownScript : MonoBehaviour {
 
-    public Text countdownText;
+    public TextMeshProUGUI countdownText;
     public GameObject p1car1;
     public GameObject p1car2;
     public GameObject p1car3;

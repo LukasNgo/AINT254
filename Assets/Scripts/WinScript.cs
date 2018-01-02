@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class WinScript : MonoBehaviour {
 
-    public Text P1WinText;
-    public Text P2WinText;
+    public TextMeshProUGUI P1WinText;
+    public TextMeshProUGUI P2WinText;
 
 	// Use this for initialization
 	void Start () {
