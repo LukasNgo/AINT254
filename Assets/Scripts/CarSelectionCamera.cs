@@ -108,8 +108,8 @@ public class CarSelectionCamera : MonoBehaviour {
         }
         if(isPlayer1Selected && isPlayer2Selected)
         {
-            //StartCoroutine(LoadSceneASync());
-            SceneManager.LoadScene(1);
+            StartCoroutine(LoadSceneASync());
+            //SceneManager.LoadScene(1);
         }
 
         //fade in/out function
@@ -128,18 +128,18 @@ public class CarSelectionCamera : MonoBehaviour {
         
     }
 
-    //private IEnumerator LoadSceneASync()
-    //{
-    //    AsyncOperation operation = SceneManager.LoadSceneAsync(1);
-    //    loadingScreen.SetActive(true);
-    //
-    //    while (!operation.isDone)
-    //    {
-    //        float progress = Mathf.Clamp01(operation.progress / .9f);
-    //        slider.value = progress;
-    //        yield return null;
-    //    }
-    //}
+    private IEnumerator LoadSceneASync()
+    {
+        AsyncOperation operation = SceneManager.LoadSceneAsync(1);
+        loadingScreen.SetActive(true);
+    
+        while (!operation.isDone)
+        {
+            float progress = Mathf.Clamp01(operation.progress / .9f);
+            slider.value = progress;
+            yield return null;
+        }
+    }
 
     private IEnumerator Transition(Vector3 startPos, Vector3 finishPos, int pos)
     {
