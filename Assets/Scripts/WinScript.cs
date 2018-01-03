@@ -8,6 +8,7 @@ public class WinScript : MonoBehaviour {
 
     public TextMeshProUGUI P1WinText;
     public TextMeshProUGUI P2WinText;
+    public AudioSource winSound;
 
 	// Use this for initialization
 	void Start () {
@@ -22,11 +23,13 @@ public class WinScript : MonoBehaviour {
         {
             P1WinText.text = "Winner";
             P2WinText.text = "Loser";
+            winSound.Play();
         }
         if (Laps2.Lap == 4 && Laps.Lap != 4)
         {
             P1WinText.text = "Loser";
             P2WinText.text = "Winner";
+            winSound.Play();
         }
     }
 }

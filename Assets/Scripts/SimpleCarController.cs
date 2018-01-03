@@ -32,6 +32,8 @@ public class SimpleCarController : MonoBehaviour
     public int playerNumber = 1;
     public AudioSource boostAudioSource;
     private bool isBoostActivated = false;
+    public AudioSource respawnSound;
+    public AudioSource explodeSound;
 
     public void Start()
     {
@@ -55,6 +57,7 @@ public class SimpleCarController : MonoBehaviour
     public void DestroyEffectPlay()
     {
         setDestroyEffect.Play();
+        explodeSound.Play();
     }
 
     public void DestroyEffectStop()
@@ -65,6 +68,7 @@ public class SimpleCarController : MonoBehaviour
     public void SpawnEffectPlay()
     {
         setSpawnEffect.Play();
+        respawnSound.Play();
     }
 
     public void SpawnEffectStop()

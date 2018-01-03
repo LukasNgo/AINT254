@@ -18,6 +18,8 @@ public class RaceCountdownScript : MonoBehaviour {
     public GameObject overviewCamera1;
     public GameObject overviewCamera2;
     public GameObject canvasGUI;
+    public AudioSource shortBeep;
+    public AudioSource longBeep;
 
     // Use this for initialization
     void Start () {
@@ -41,17 +43,21 @@ public class RaceCountdownScript : MonoBehaviour {
         p2car4.GetComponent<Rigidbody>().isKinematic = true;
         Time.timeScale = 0;
         yield return new WaitForSecondsRealtime(1f);
+        shortBeep.Play();
         countdownText.text = "3";
         yield return new WaitForSecondsRealtime(1f);
         overviewCamera1.SetActive(false);
         overviewCamera2.SetActive(true);
         countdownText.text = "2";
+        shortBeep.Play();
         yield return new WaitForSecondsRealtime(1f);
         overviewCamera2.SetActive(false);
         countdownText.text = "1";
+        shortBeep.Play();
         canvasGUI.SetActive(true);
         yield return new WaitForSecondsRealtime(1f);
         countdownText.text = "GO!";
+        longBeep.Play();
         Time.timeScale = 1;
         p1car1.GetComponent<Rigidbody>().isKinematic = false;
         p1car2.GetComponent<Rigidbody>().isKinematic = false;
