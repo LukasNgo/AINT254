@@ -31,11 +31,24 @@ public class SimpleCarController : MonoBehaviour
     [Range(1,2)]
     public int playerNumber = 1;
     public AudioSource boostAudioSource;
+    private bool isBoostActivated = false;
 
     public void Start()
     {
         DestroyEffectStop();
         SpawnEffectStop();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.RightShift) && playerNumber == 1 && boostReady)
+        {
+            isBoostActivated = true;
+        }
+        if (Input.GetKeyDown(KeyCode.LeftShift) && playerNumber == 2 && boostReady)
+        {
+            isBoostActivated = true;
+        }
     }
 
     //particle effect methods
@@ -172,28 +185,29 @@ public class SimpleCarController : MonoBehaviour
             }
 
             //boost method
-            if (axleInfo.motor && Input.GetKeyDown(KeyCode.RightShift) && playerNumber == 1)
+            if (axleInfo.motor && isBoostActivated)
             {
                 if(boostReady == true)
                 {
                     GetComponent<Rigidbody>().AddForce(transform.forward * boostPower, ForceMode.Acceleration);
                     boostAudioSource.Play();
                     boostReady = false;
+                    isBoostActivated = false;
                     boostCooldown = 0;
                     boostEffect.Play();
                 }
             }
-            if (axleInfo.motor && Input.GetKeyDown(KeyCode.LeftShift) && playerNumber == 2)
-            {
-                if (boostReady == true)
-                {
-                    GetComponent<Rigidbody>().AddForce(transform.forward * boostPower, ForceMode.Acceleration);
-                    boostAudioSource.Play();
-                    boostReady = false;
-                    boostCooldown = 0;
-                    boostEffect.Play();
-                }
-            }
+            //if (axleInfo.motor && Input.GetKeyDown(KeyCode.LeftShift) && playerNumber == 2)
+            //{
+            //    if (boostReady == true)
+            //    {
+            //        GetComponent<Rigidbody>().AddForce(transform.forward * boostPower, ForceMode.Acceleration);
+            //        boostAudioSource.Play();
+            //        boostReady = false;
+            //        boostCooldown = 0;
+            //        boostEffect.Play();
+            //    }
+            //}
 
             //add force when reversing
             if (axleInfo.motor && Input.GetAxis("Vertical") < 0 && playerNumber == 1)

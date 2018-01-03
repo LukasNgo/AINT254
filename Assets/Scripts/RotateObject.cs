@@ -11,7 +11,7 @@ public class RotateObject : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
         //transform.Rotate(Vector3.right * (10f* Time.deltaTime));
         transform.Rotate(new Vector3(0, 0.3f, 0), Space.Self);
 	}
