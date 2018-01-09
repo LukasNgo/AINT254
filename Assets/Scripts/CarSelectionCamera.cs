@@ -108,8 +108,8 @@ public class CarSelectionCamera : MonoBehaviour {
         }
         if(isPlayer1Selected && isPlayer2Selected)
         {
-            StartCoroutine(LoadSceneASync());
-            //SceneManager.LoadScene(1);
+            //StartCoroutine(LoadSceneASync());
+            SceneManager.LoadScene(1);
         }
 
         //fade in/out function
