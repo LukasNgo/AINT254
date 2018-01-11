@@ -143,7 +143,7 @@ public class CarSelectionCamera : MonoBehaviour {
 
     private IEnumerator Transition(Vector3 startPos, Vector3 finishPos, int pos)
     {
-        currentPos = 0;
+        //currentPos = 0;
         float t = 0.0f;
         while (t < 1.0f)
         {
