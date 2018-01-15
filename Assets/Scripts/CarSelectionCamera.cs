@@ -95,7 +95,7 @@ public class CarSelectionCamera : MonoBehaviour {
 
         if((Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.Return)) && !isPlayer1Selected && isSelectTimeout)
         {
-            selectCarText.text = "Player 2 select car";
+            selectCarText.text = "<-- Player 2 select car";
             playerOneSelection = currentPos;
             isPlayer1Selected = true;
             Fade(true, 0.5f);
